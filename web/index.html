@@ -4,247 +4,761 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DePIN ONE — One Command. All DePIN Nodes.</title>
-    <meta name="description" content="Run 8+ DePIN nodes on your Mac with a single command. Auto-setup, auto-restart, Telegram alerts. Supports Teneo, Grass, Dawn, Gradient, Rivalz, Bless, Gata and more.">
+    <meta name="description" content="Run 8+ DePIN nodes on your Mac with a single command. Auto-setup, auto-restart, Telegram alerts.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,510;14..32,590&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0a0a0f;
-            --fg: #e4e4e7;
-            --accent: #6366f1;
-            --accent2: #22d3ee;
-            --card: #14141a;
-            --border: #27272a;
+            --bg: #08090a;
+            --panel: #0f1011;
+            --surface: #191a1b;
+            --surface-hover: #28282c;
+            --text-primary: #f7f8f8;
+            --text-secondary: #d0d6e0;
+            --text-tertiary: #8a8f98;
+            --text-quaternary: #62666d;
+            --brand: #5e6ad2;
+            --brand-hover: #7170ff;
+            --brand-accent: #828fff;
+            --green: #27a644;
+            --border: rgba(255,255,255,0.08);
+            --border-subtle: rgba(255,255,255,0.05);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            font-feature-settings: 'cv01', 'ss03';
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             background: var(--bg);
-            color: var(--fg);
+            color: var(--text-secondary);
             line-height: 1.6;
         }
-        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
-        
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(8,9,10,0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        nav .inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        nav .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 590;
+            font-size: 16px;
+            letter-spacing: -0.24px;
+        }
+        nav .logo svg { width: 28px; height: 28px; }
+        nav .links { display: flex; align-items: center; gap: 24px; }
+        nav .links a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 510;
+            transition: color 0.2s;
+        }
+        nav .links a:hover { color: var(--text-primary); }
+        .nav-cta {
+            background: var(--brand);
+            color: white !important;
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 510;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .nav-cta:hover { background: var(--brand-hover) !important; }
+
         /* Hero */
         .hero {
+            padding: 160px 24px 100px;
             text-align: center;
-            padding: 6rem 0 4rem;
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            letter-spacing: -0.02em;
-        }
-        .hero .subtitle {
-            font-size: 1.25rem;
-            color: #a1a1aa;
-            max-width: 600px;
-            margin: 0 auto 2rem;
+            max-width: 800px;
+            margin: 0 auto;
         }
         .hero .tag {
-            display: inline-block;
-            background: rgba(99,102,241,0.15);
-            border: 1px solid rgba(99,102,241,0.3);
-            color: var(--accent);
-            padding: 0.25rem 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(94,106,210,0.12);
+            border: 1px solid rgba(94,106,210,0.25);
+            color: var(--brand-accent);
+            padding: 4px 12px 4px 8px;
             border-radius: 999px;
-            font-size: 0.875rem;
-            margin-bottom: 1.5rem;
+            font-size: 13px;
+            font-weight: 510;
+            margin-bottom: 24px;
         }
-        
-        /* Install box */
+        .hero .tag .dot {
+            width: 6px; height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 510;
+            line-height: 1.0;
+            letter-spacing: -1.584px;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+        .hero h1 .accent {
+            background: linear-gradient(135deg, var(--brand), var(--brand-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--text-tertiary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            letter-spacing: -0.165px;
+        }
+
+        /* Install Box */
         .install-box {
-            background: var(--card);
+            display: inline-flex;
+            align-items: center;
+            gap: 0;
+            background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem auto;
-            max-width: 680px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 16px;
         }
-        .install-box code {
-            display: block;
-            background: #000;
-            padding: 1rem 1.25rem;
-            border-radius: 8px;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 1rem;
-            color: var(--accent2);
-            border: 1px solid var(--border);
-            margin-bottom: 0.75rem;
-            user-select: all;
+        .install-box .prompt {
+            padding: 14px 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--text-tertiary);
+            user-select: none;
         }
-        .install-box .hint {
-            color: #71717a;
-            font-size: 0.875rem;
+        .install-box .prompt .dollar { color: var(--green); }
+        .install-box .cmd {
+            padding: 14px 20px 14px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            white-space: nowrap;
         }
-        .copy-btn {
-            background: var(--accent);
+        .install-box .copy-btn {
+            background: var(--brand);
             color: white;
             border: none;
-            padding: 0.5rem 1.25rem;
-            border-radius: 6px;
-            font-size: 0.875rem;
+            padding: 14px 20px;
+            font-size: 13px;
+            font-weight: 510;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: background 0.2s;
+            font-family: 'Inter', sans-serif;
+            font-feature-settings: 'cv01', 'ss03';
         }
-        .copy-btn:hover { opacity: 0.85; }
+        .install-box .copy-btn:hover { background: var(--brand-hover); }
+        .install-box .copy-btn.copied { background: var(--green); }
+        .hero .sub-meta {
+            font-size: 14px;
+            color: var(--text-quaternary);
+            font-weight: 400;
+        }
+        .hero .sub-meta strong { color: var(--text-tertiary); font-weight: 510; }
+
+        /* Terminal Preview */
+        .terminal-preview {
+            max-width: 720px;
+            margin: 48px auto 0;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            text-align: left;
+        }
+        .terminal-preview .title-bar {
+            background: var(--surface);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .terminal-preview .title-bar .dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+        }
+        .terminal-preview .title-bar .dot:nth-child(1) { background: #ff5f56; }
+        .terminal-preview .title-bar .dot:nth-child(2) { background: #ffbd2e; }
+        .terminal-preview .title-bar .dot:nth-child(3) { background: #27c93f; }
+        .terminal-preview .title-bar span {
+            font-size: 12px;
+            color: var(--text-quaternary);
+            margin-left: 8px;
+            font-weight: 510;
+        }
+        .terminal-preview .body {
+            padding: 20px 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--text-tertiary);
+        }
+        .terminal-preview .body .line { opacity: 0; animation: fadeIn 0.3s forwards; }
+        .terminal-preview .body .line:nth-child(1) { animation-delay: 0.1s; }
+        .terminal-preview .body .line:nth-child(2) { animation-delay: 0.4s; }
+        .terminal-preview .body .line:nth-child(3) { animation-delay: 0.7s; }
+        .terminal-preview .body .line:nth-child(4) { animation-delay: 1.0s; }
+        .terminal-preview .body .line:nth-child(5) { animation-delay: 1.3s; }
+        .terminal-preview .body .line:nth-child(6) { animation-delay: 1.6s; }
+        .terminal-preview .body .line:nth-child(7) { animation-delay: 1.9s; }
+        .terminal-preview .body .green { color: var(--green); }
+        .terminal-preview .body .accent { color: var(--brand-accent); }
+        .terminal-preview .body .gray { color: var(--text-quaternary); }
+        .terminal-preview .body .white { color: var(--text-primary); }
+        @keyframes fadeIn { to { opacity: 1; } }
+        .cursor-blink {
+            display: inline-block;
+            width: 8px; height: 16px;
+            background: var(--text-primary);
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+            margin-left: 2px;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
 
         /* Stats */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin: 3rem 0;
+        .stats-section {
+            padding: 80px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .stat {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.5rem;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border-subtle);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        .stat-item {
+            background: var(--panel);
+            padding: 32px 24px;
             text-align: center;
         }
-        .stat .num { font-size: 1.75rem; font-weight: 700; color: var(--accent2); }
-        .stat .label { font-size: 0.875rem; color: #71717a; margin-top: 0.25rem; }
+        .stat-item .num {
+            font-size: 36px;
+            font-weight: 510;
+            color: var(--text-primary);
+            letter-spacing: -0.704px;
+            line-height: 1;
+        }
+        .stat-item .label {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        /* Supported Nodes */
+        .nodes-section {
+            padding: 80px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 510;
+            color: var(--brand-accent);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: 40px;
+            font-weight: 510;
+            line-height: 1.1;
+            letter-spacing: -0.88px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-tertiary);
+            max-width: 500px;
+            margin-bottom: 48px;
+            letter-spacing: -0.165px;
+        }
+        .nodes-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        .node-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            transition: all 0.2s;
+        }
+        .node-card:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.12);
+        }
+        .node-card .icon { font-size: 24px; margin-bottom: 12px; }
+        .node-card .name {
+            font-size: 16px;
+            font-weight: 510;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .node-card .status {
+            font-size: 13px;
+            color: var(--green);
+            font-weight: 510;
+        }
+        .node-card .status::before { content: '● '; }
+        .node-card .protocol {
+            font-size: 12px;
+            color: var(--text-quaternary);
+            margin-top: 8px;
+        }
 
         /* Features */
-        .features {
+        .features-section {
+            padding: 80px 24px 120px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 3rem 0;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
         }
-        .feature {
-            background: var(--card);
+        .feature-card {
+            background: rgba(255,255,255,0.02);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            padding: 28px;
+            transition: all 0.2s;
         }
-        .feature h3 { margin-bottom: 0.5rem; font-size: 1.1rem; }
-        .feature p { color: #a1a1aa; font-size: 0.9rem; }
+        .feature-card:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.12);
+        }
+        .feature-card .emoji { font-size: 28px; margin-bottom: 16px; }
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 590;
+            color: var(--text-primary);
+            letter-spacing: -0.24px;
+            margin-bottom: 8px;
+        }
+        .feature-card p {
+            font-size: 15px;
+            color: var(--text-tertiary);
+            line-height: 1.6;
+            letter-spacing: -0.165px;
+        }
 
-        /* Node list */
-        .nodes {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            justify-content: center;
-            margin: 2rem 0;
+        /* CLI Demo */
+        .cli-section {
+            padding: 100px 24px;
+            background: var(--panel);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
         }
-        .node {
-            background: var(--card);
+        .cli-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .cli-demo {
+            background: #000;
             border: 1px solid var(--border);
-            border-radius: 999px;
-            padding: 0.4rem 1rem;
-            font-size: 0.875rem;
+            border-radius: var(--radius-md);
+            overflow: hidden;
         }
-        .node .check { color: #22c55e; margin-right: 0.25rem; }
+        .cli-demo .body {
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--text-tertiary);
+        }
+        .cli-demo .body .green { color: var(--green); }
+        .cli-demo .body .accent { color: var(--brand-accent); }
+        .cli-demo .body .gray { color: var(--text-quaternary); }
+        .cli-demo .body .white { color: var(--text-primary); }
+        .cli-content h2 {
+            font-size: 36px;
+            font-weight: 510;
+            line-height: 1.1;
+            letter-spacing: -0.792px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        .cli-content p {
+            font-size: 16px;
+            color: var(--text-tertiary);
+            line-height: 1.6;
+            letter-spacing: -0.165px;
+            margin-bottom: 24px;
+        }
+        .cli-content .cmd-list { list-style: none; }
+        .cli-content .cmd-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 14px;
+        }
+        .cli-content .cmd-list li:last-child { border-bottom: none; }
+        .cli-content .cmd-list code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            background: var(--surface);
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: var(--brand-accent);
+        }
 
         /* CTA */
-        .cta {
+        .cta-section {
+            padding: 100px 24px;
             text-align: center;
-            padding: 3rem 0;
         }
-        .cta a {
-            display: inline-block;
-            background: var(--accent);
+        .cta-section h2 {
+            font-size: 48px;
+            font-weight: 510;
+            line-height: 1.0;
+            letter-spacing: -1.056px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        .cta-section p {
+            font-size: 18px;
+            color: var(--text-tertiary);
+            max-width: 480px;
+            margin: 0 auto 32px;
+            letter-spacing: -0.165px;
+        }
+        .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--brand);
             color: white;
-            padding: 0.85rem 2rem;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
-            transition: opacity 0.2s;
+            font-size: 16px;
+            font-weight: 510;
+            transition: background 0.2s;
         }
-        .cta a:hover { opacity: 0.85; }
-        .cta .github {
-            display: inline-block;
-            margin-top: 1rem;
-            color: #a1a1aa;
+        .cta-primary:hover { background: var(--brand-hover); }
+        .cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.02);
+            color: var(--text-secondary);
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 16px;
+            font-weight: 510;
+            border: 1px solid var(--border);
+            margin-left: 12px;
+            transition: all 0.2s;
         }
-        .cta .github:hover { color: var(--fg); }
+        .cta-secondary:hover {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.12);
+        }
 
         footer {
+            padding: 40px 24px;
             text-align: center;
-            color: #52525b;
-            font-size: 0.8rem;
-            padding: 2rem 0;
+            border-top: 1px solid var(--border-subtle);
+        }
+        footer p {
+            font-size: 13px;
+            color: var(--text-quaternary);
+        }
+        footer a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+        }
+        footer a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 40px; letter-spacing: -0.88px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .nodes-grid { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: 1fr; }
+            .cli-inner { grid-template-columns: 1fr; gap: 40px; }
+            .install-box { flex-wrap: wrap; }
+            .install-box .cmd { font-size: 12px; padding: 14px; }
+            nav .links a:not(.nav-cta) { display: none; }
+            .cli-content .cmd-list li { font-size: 13px; }
+            .section-title { font-size: 28px; }
+            .cta-section h2 { font-size: 32px; letter-spacing: -0.704px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="hero">
-            <div class="tag">🔥 v1.0.0 — Open Source</div>
-            <h1>DePIN ONE</h1>
-            <p class="subtitle">Run 8+ DePIN nodes on your Mac with a single command. Auto-setup, auto-restart, auto-report.</p>
-            
-            <div class="install-box">
-                <code>curl -fsSL https://depin.one/install.sh | bash</code>
-                <button class="copy-btn" onclick="navigator.clipboard.writeText('curl -fsSL https://depin.one/install.sh | bash')">📋 Copy</button>
-                <div class="hint">macOS 12+ required · Homebrew auto-installed · 5 minutes setup</div>
+    <nav>
+        <div class="inner">
+            <a href="#" class="logo">
+                <svg viewBox="0 0 28 28" fill="none">
+                    <rect x="2" y="2" width="24" height="24" rx="6" stroke="#5e6ad2" stroke-width="2" fill="rgba(94,106,210,0.15)"/>
+                    <path d="M8 14l4 4 8-8" stroke="#7170ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="8" cy="14" r="2" fill="#5e6ad2"/>
+                    <circle cx="12" cy="18" r="2" fill="#7170ff"/>
+                    <circle cx="20" cy="10" r="2" fill="#828fff"/>
+                </svg>
+                DePIN ONE
+            </a>
+            <div class="links">
+                <a href="#nodes">Nodes</a>
+                <a href="#features">Features</a>
+                <a href="#cli">CLI</a>
+                <a href="https://github.com/kangkuyun-code/depin-one" target="_blank">GitHub</a>
+                <a href="#install" class="nav-cta">Install</a>
             </div>
         </div>
+    </nav>
 
-        <div class="stats">
-            <div class="stat"><div class="num">8+</div><div class="label">DePIN Nodes</div></div>
-            <div class="stat"><div class="num">5</div><div class="label">Minute Setup</div></div>
-            <div class="stat"><div class="num">24/7</div><div class="label">Auto-Restart</div></div>
-            <div class="stat"><div class="num">📱</div><div class="label">Telegram Alerts</div></div>
+    <section class="hero" id="install">
+        <div class="tag">
+            <span class="dot"></span>
+            v1.0.0 · Open Source · MIT
         </div>
-
-        <div class="nodes">
-            <span class="node"><span class="check">✅</span> Teneo</span>
-            <span class="node"><span class="check">✅</span> Grass</span>
-            <span class="node"><span class="check">✅</span> Dawn</span>
-            <span class="node"><span class="check">✅</span> Gradient</span>
-            <span class="node"><span class="check">✅</span> Rivalz</span>
-            <span class="node"><span class="check">✅</span> Bless</span>
-            <span class="node"><span class="check">✅</span> Gata</span>
-            <span class="node"><span class="check">✅</span> Ink</span>
+        <h1>DePIN <span class="accent">ONE</span></h1>
+        <p>Run 8+ DePIN nodes on your Mac with a single command.<br>Auto-setup. Auto-restart. Telegram alerts.</p>
+        
+        <div class="install-box">
+            <span class="prompt"><span class="dollar">$</span></span>
+            <span class="cmd">curl -fsSL https://depin.one/install.sh | bash</span>
+            <button class="copy-btn" onclick="copyCmd(this)">Copy</button>
         </div>
+        <div class="sub-meta">macOS 12+ · Homebrew auto-installed · <strong>~3 minutes</strong> to full setup</div>
 
-        <div class="features">
-            <div class="feature">
-                <h3>🚀 One Command</h3>
-                <p>Copy-paste one line into Terminal. Everything installs automatically: Python, dependencies, Playwright browsers.</p>
+        <div class="terminal-preview">
+            <div class="title-bar">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <span>Terminal — depin-one install</span>
             </div>
-            <div class="feature">
-                <h3>🔄 Auto-Restart</h3>
-                <p>launchd keeps your nodes running 24/7. If a node crashes or your Mac reboots, it comes back automatically.</p>
-            </div>
-            <div class="feature">
-                <h3>📊 Live Dashboard</h3>
-                <p>Check status with <code>depin-one status</code>. View all node earnings, uptime, and health in one place.</p>
-            </div>
-            <div class="feature">
-                <h3>📱 Telegram Alerts</h3>
-                <p>Get daily earnings reports and instant alerts when a node goes down. Configure your bot token during setup.</p>
-            </div>
-            <div class="feature">
-                <h3>🔧 Interactive Setup</h3>
-                <p>Guided config asks for your credentials once. All 8+ nodes are configured automatically from your answers.</p>
-            </div>
-            <div class="feature">
-                <h3>🔒 Private & Local</h3>
-                <p>Everything runs locally on your Mac. No cloud dependency, no data sharing. Your keys, your nodes, your rewards.</p>
+            <div class="body">
+                <div class="line gray">$ curl -fsSL https://depin.one/install.sh | bash</div>
+                <div class="line" style="margin-top:6px;"><span class="gray">[</span><span class="green">  OK  </span><span class="gray">]</span> macOS 14.5 detected</div>
+                <div class="line"><span class="gray">[</span><span class="green">  OK  </span><span class="gray">]</span> Homebrew 4.4.2</div>
+                <div class="line"><span class="gray">[</span><span class="green">  OK  </span><span class="gray">]</span> Python 3.12.3 virtualenv</div>
+                <div class="line"><span class="gray">[</span><span class="green">  OK  </span><span class="gray">]</span> 8/8 node modules installed</div>
+                <div class="line"><span class="gray">[</span><span class="green">  OK  </span><span class="gray">]</span> launchd service registered</div>
+                <div class="line" style="margin-top:6px;"><span class="accent">●</span> <span class="white">All nodes running. Earnings reported daily via Telegram.</span><span class="cursor-blink"></span></div>
             </div>
         </div>
+    </section>
 
-        <div class="cta">
-            <a href="https://github.com/kangkuyun/depin-one" target="_blank">View on GitHub →</a>
-            <br>
-            <a class="github" href="https://github.com/kangkuyun/depin-one/issues">Report Issues</a>
-            <span style="color:#52525b;margin:0 0.5rem">·</span>
-            <a class="github" href="https://t.me/depin_one">Telegram Community</a>
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item"><div class="num">8+</div><div class="label">DePIN Nodes</div></div>
+            <div class="stat-item"><div class="num">3</div><div class="label">Minute Setup</div></div>
+            <div class="stat-item"><div class="num">24/7</div><div class="label">Auto-Restart</div></div>
+            <div class="stat-item"><div class="num">📱</div><div class="label">Telegram Alerts</div></div>
         </div>
+    </section>
 
-        <footer>
-            Built with ❤️ by a DePIN farmer · Not financial advice
-        </footer>
-    </div>
+    <section class="nodes-section" id="nodes">
+        <div class="section-label">⛓️ Supported Networks</div>
+        <h2 class="section-title">All major DePINs,<br>one setup.</h2>
+        <p class="section-desc">Every node configured automatically. Just enter your email once.</p>
+        <div class="nodes-grid">
+            <div class="node-card">
+                <div class="icon">🌀</div>
+                <div class="name">Teneo</div>
+                <div class="status">Active</div>
+                <div class="protocol">AI Agent Network · Beacon app</div>
+            </div>
+            <div class="node-card">
+                <div class="icon">🌿</div>
+                <div class="name">Grass</div>
+                <div class="status">Active</div>
+                <div class="protocol">Bandwidth · Desktop App</div>
+            </div>
+            <div class="node-card">
+                <div class="icon">🌅</div>
+                <div class="name">Dawn</div>
+                <div class="status">Active</div>
+                <div class="protocol">Bandwidth Validator · Extension</div>
+            </div>
+            <div class="node-card">
+                <div class="icon">📶</div>
+                <div class="name">Gradient</div>
+                <div class="status">Active</div>
+                <div class="protocol">Network Edge · Extension</div>
+            </div>
+            <div class="node-card">
+                <div class="icon">⚙️</div>
+                <div class="name">Rivalz</div>
+                <div class="status">Active</div>
+                <div class="protocol">AI Data · CLI Node</div>
+            </div>
+            <div class="node-card">
+                <div class="icon">✨</div>
+                <div class="name">Bless</div>
+                <div class="status">Active</div>
+                <div class="protocol">Network Health · Extension</div>
+            </div>
+            <div class="node-card">
+                <div class="icon">💠</div>
+                <div class="name">Gata</div>
+                <div class="status">Active</div>
+                <div class="protocol">AI Data Agent · Web App</div>
+            </div>
+            <div class="node-card">
+                <div class="icon">✒️</div>
+                <div class="name">Ink</div>
+                <div class="status">Active</div>
+                <div class="protocol">L2 Testnet · TX Automation</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section" id="features">
+        <div class="section-label">⚡ Key Features</div>
+        <h2 class="section-title">Designed for<br>DePIN farmers.</h2>
+        <p class="section-desc">Built from real operational experience running 8+ nodes across multiple testnets.</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="emoji">🚀</div>
+                <h3>One Command</h3>
+                <p>Copy-paste one line into Terminal. Python, Playwright, all dependencies install automatically. No manual setup.</p>
+            </div>
+            <div class="feature-card">
+                <div class="emoji">🔄</div>
+                <h3>launchd Auto-Restart</h3>
+                <p>macOS launchd keeps your nodes running 24/7 through crashes and reboots. Zero maintenance required.</p>
+            </div>
+            <div class="feature-card">
+                <div class="emoji">📊</div>
+                <h3>Live Dashboard</h3>
+                <p><code>depin-one status</code> shows all node earnings, uptime, and health. Real-time stats in your terminal.</p>
+            </div>
+            <div class="feature-card">
+                <div class="emoji">📱</div>
+                <h3>Telegram Alerts</h3>
+                <p>Daily earnings reports. Instant node-down notifications. Everything sent to your Telegram.</p>
+            </div>
+            <div class="feature-card">
+                <div class="emoji">🔧</div>
+                <h3>Interactive Setup</h3>
+                <p>Guided configuration asks for credentials once. All 8+ nodes configured from a single input session.</p>
+            </div>
+            <div class="feature-card">
+                <div class="emoji">🔒</div>
+                <h3>Local & Private</h3>
+                <p>Everything runs on your Mac. No cloud upload, no data sharing. Your keys stay on your machine.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cli-section" id="cli">
+        <div class="cli-inner">
+            <div class="cli-demo">
+                <div class="body">
+                    <div class="gray">$ <span class="white">depin-one status</span></div>
+                    <div style="margin-top:8px;">
+                        <div><span class="green">●</span> <span class="white">teneo</span>    <span class="gray">105,075 pts</span></div>
+                        <div><span class="green">●</span> <span class="white">grass</span>    <span class="gray">11,252 pts</span></div>
+                        <div><span class="green">●</span> <span class="white">dawn</span>     <span class="gray">25,220 pts</span></div>
+                        <div><span class="green">●</span> <span class="white">gradient</span> <span class="gray">0 pts</span></div>
+                        <div><span class="green">●</span> <span class="white">rivalz</span>   <span class="gray">running</span></div>
+                        <div><span class="green">●</span> <span class="white">bless</span>    <span class="gray">online</span></div>
+                        <div><span class="green">●</span> <span class="white">gata</span>     <span class="gray">connected</span></div>
+                        <div style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;">
+                            <span class="accent">●</span> <span class="white">7/7 nodes running</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cli-content">
+                <h2>One CLI to rule them all.</h2>
+                <p>Manage all your DePIN nodes with simple commands. No dashboards, no clicking through extensions.</p>
+                <ul class="cmd-list">
+                    <li><code>depin-one status</code> <span class="gray">→</span> <span>View all node statuses</span></li>
+                    <li><code>depin-one restart</code> <span class="gray">→</span> <span>Restart all nodes</span></li>
+                    <li><code>depin-one logs</code> <span class="gray">→</span> <span>Tail recent logs</span></li>
+                    <li><code>depin-one edit</code> <span class="gray">→</span> <span>Update credentials</span></li>
+                    <li><code>depin-one update</code> <span class="gray">→</span> <span>Update dependencies</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to farm?</h2>
+        <p>One command. All DePIN nodes. Start earning in 3 minutes.</p>
+        <a href="#install" class="cta-primary">
+            curl -fsSL depin.one | bash
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+        <a href="https://github.com/kangkuyun-code/depin-one" target="_blank" class="cta-secondary">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+            GitHub
+        </a>
+    </section>
+
+    <footer>
+        <p>Built by <a href="https://github.com/kangkuyun-code" target="_blank">@kangkuyun</a> · Not financial advice · MIT License</p>
+    </footer>
+
+    <script>
+    function copyCmd(btn) {
+        const text = 'curl -fsSL https://depin.one/install.sh | bash';
+        navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.textContent = 'Copy';
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+    }
+    </script>
 </body>
 </html>
