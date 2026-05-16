@@ -6,7 +6,7 @@
 set -euo pipefail
 
 VERSION="1.0.0"
-REPO_URL="https://github.com/kangkuyun/depin-one"
+REPO_URL="https://github.com/kky922/depin-one"
 BOT_DIR="$HOME/.depin-one"
 LOG_FILE="/tmp/depin-one-install.log"
 
@@ -24,6 +24,16 @@ echo "║       🔷 DePIN ONE  v${VERSION}            ║"
 echo "║   One-Command DePIN Node Installer        ║"
 echo "╚═══════════════════════════════════════════╝"
 echo -e "${NC}"
+
+# --- Referral info ---
+echo -e "${YELLOW}🔗 아래 레퍼럴 링크로 가입하시면 더 많은 혜택을 받을 수 있습니다${NC}"
+echo ""
+echo -e "  ${CYAN}Teneo:${NC}    https://dashboard.teneo.pro/auth/signup?referralCode=eFOKJ"
+echo -e "  ${CYAN}Grass:${NC}    https://app.grass.io/register?referralCode=s2UeYu1oB6CHVm3"
+echo -e "  ${CYAN}Dawn:${NC}     https://dashboard.dawninternet.com/signup?ref=E4TQJQXT"
+echo -e "  ${CYAN}Gradient:${NC} https://app.gradient.network/signup?ref=IXZ171"
+echo -e "  ${CYAN}Gata:${NC}     https://app.gata.net?invite_code=g4zp66e8"
+echo ""
 
 # --- Helper functions ---
 log()   { echo -e "${GREEN}[✓]${NC} $1"; }
