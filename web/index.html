@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DePIN ONE — One Command. All DePIN Nodes.</title>
+    <meta name="description" content="Run 8+ DePIN nodes on your Mac with a single command. Auto-setup, auto-restart, Telegram alerts. Supports Teneo, Grass, Dawn, Gradient, Rivalz, Bless, Gata and more.">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --fg: #e4e4e7;
+            --accent: #6366f1;
+            --accent2: #22d3ee;
+            --card: #14141a;
+            --border: #27272a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 6rem 0 4rem;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: #a1a1aa;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        .hero .tag {
+            display: inline-block;
+            background: rgba(99,102,241,0.15);
+            border: 1px solid rgba(99,102,241,0.3);
+            color: var(--accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Install box */
+        .install-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 680px;
+        }
+        .install-box code {
+            display: block;
+            background: #000;
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 1rem;
+            color: var(--accent2);
+            border: 1px solid var(--border);
+            margin-bottom: 0.75rem;
+            user-select: all;
+        }
+        .install-box .hint {
+            color: #71717a;
+            font-size: 0.875rem;
+        }
+        .copy-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .copy-btn:hover { opacity: 0.85; }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+        .stat {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .stat .num { font-size: 1.75rem; font-weight: 700; color: var(--accent2); }
+        .stat .label { font-size: 0.875rem; color: #71717a; margin-top: 0.25rem; }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+        .feature {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        .feature h3 { margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .feature p { color: #a1a1aa; font-size: 0.9rem; }
+
+        /* Node list */
+        .nodes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .node {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 0.4rem 1rem;
+            font-size: 0.875rem;
+        }
+        .node .check { color: #22c55e; margin-right: 0.25rem; }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 3rem 0;
+        }
+        .cta a {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: opacity 0.2s;
+        }
+        .cta a:hover { opacity: 0.85; }
+        .cta .github {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #a1a1aa;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .cta .github:hover { color: var(--fg); }
+
+        footer {
+            text-align: center;
+            color: #52525b;
+            font-size: 0.8rem;
+            padding: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="tag">🔥 v1.0.0 — Open Source</div>
+            <h1>DePIN ONE</h1>
+            <p class="subtitle">Run 8+ DePIN nodes on your Mac with a single command. Auto-setup, auto-restart, auto-report.</p>
+            
+            <div class="install-box">
+                <code>curl -fsSL https://depin.one/install.sh | bash</code>
+                <button class="copy-btn" onclick="navigator.clipboard.writeText('curl -fsSL https://depin.one/install.sh | bash')">📋 Copy</button>
+                <div class="hint">macOS 12+ required · Homebrew auto-installed · 5 minutes setup</div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat"><div class="num">8+</div><div class="label">DePIN Nodes</div></div>
+            <div class="stat"><div class="num">5</div><div class="label">Minute Setup</div></div>
+            <div class="stat"><div class="num">24/7</div><div class="label">Auto-Restart</div></div>
+            <div class="stat"><div class="num">📱</div><div class="label">Telegram Alerts</div></div>
+        </div>
+
+        <div class="nodes">
+            <span class="node"><span class="check">✅</span> Teneo</span>
+            <span class="node"><span class="check">✅</span> Grass</span>
+            <span class="node"><span class="check">✅</span> Dawn</span>
+            <span class="node"><span class="check">✅</span> Gradient</span>
+            <span class="node"><span class="check">✅</span> Rivalz</span>
+            <span class="node"><span class="check">✅</span> Bless</span>
+            <span class="node"><span class="check">✅</span> Gata</span>
+            <span class="node"><span class="check">✅</span> Ink</span>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h3>🚀 One Command</h3>
+                <p>Copy-paste one line into Terminal. Everything installs automatically: Python, dependencies, Playwright browsers.</p>
+            </div>
+            <div class="feature">
+                <h3>🔄 Auto-Restart</h3>
+                <p>launchd keeps your nodes running 24/7. If a node crashes or your Mac reboots, it comes back automatically.</p>
+            </div>
+            <div class="feature">
+                <h3>📊 Live Dashboard</h3>
+                <p>Check status with <code>depin-one status</code>. View all node earnings, uptime, and health in one place.</p>
+            </div>
+            <div class="feature">
+                <h3>📱 Telegram Alerts</h3>
+                <p>Get daily earnings reports and instant alerts when a node goes down. Configure your bot token during setup.</p>
+            </div>
+            <div class="feature">
+                <h3>🔧 Interactive Setup</h3>
+                <p>Guided config asks for your credentials once. All 8+ nodes are configured automatically from your answers.</p>
+            </div>
+            <div class="feature">
+                <h3>🔒 Private & Local</h3>
+                <p>Everything runs locally on your Mac. No cloud dependency, no data sharing. Your keys, your nodes, your rewards.</p>
+            </div>
+        </div>
+
+        <div class="cta">
+            <a href="https://github.com/kangkuyun/depin-one" target="_blank">View on GitHub →</a>
+            <br>
+            <a class="github" href="https://github.com/kangkuyun/depin-one/issues">Report Issues</a>
+            <span style="color:#52525b;margin:0 0.5rem">·</span>
+            <a class="github" href="https://t.me/depin_one">Telegram Community</a>
+        </div>
+
+        <footer>
+            Built with ❤️ by a DePIN farmer · Not financial advice
+        </footer>
+    </div>
+</body>
+</html>
